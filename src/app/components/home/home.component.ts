@@ -18,6 +18,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CalificacionComponent } from '../../shared/calificacion/calificacion.component';
 import { AppComponent } from "../../app.component";
+import { Calificacion2Component } from '../../shared/calificacion2/calificacion2.component';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,7 @@ import { AppComponent } from "../../app.component";
     MatButtonModule, MatDividerModule, MatIconModule, MatCardModule, MatFormFieldModule,
     MatSelectModule, MatInputModule, FormsModule, CommonModule, ReactiveFormsModule,
     MatTableModule, MatExpansionModule, MatAutocompleteModule, AsyncPipe, CalificacionComponent,
-    AppComponent
+    AppComponent, Calificacion2Component
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']

@@ -1,21 +1,20 @@
-import { Component, OnInit, AfterViewInit  } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 
-declare var FaceRating: any; // Declara la clase para evitar errores de TypeScript
+// Declara FaceRating si es una biblioteca externa
+declare var FaceRating: any;
 
 @Component({
   selector: 'app-calificacion',
   standalone: true,
-  imports: [],
   templateUrl: './calificacion.component.html',
-  styleUrl: './calificacion.component.css'
+  styleUrls: ['./calificacion.component.css'] // Asegúrate de que sea 'styleUrls'
 })
-
-
-
-export class CalificacionComponent implements AfterViewInit  {
+export class CalificacionComponent implements AfterViewInit {
+  @ViewChild('faceRatingInput', { static: false }) faceRatingInput!: ElementRef;
 
   ngAfterViewInit(): void {
-    new FaceRating('.face-rating'); // Inicializa FaceRating al montar el DOM
+    if (this.faceRatingInput) {
+      new FaceRating(this.faceRatingInput.nativeElement); // Usamos el input específico
+    }
   }
-
 }

@@ -1,0 +1,22 @@
+<p>calificacion2 works!</p>
+
+
+<button (click)="sumar(1)" >+</button>
+    <span> {{ numero }} </span> 
+    
+    @if ( numero > 0 ) {
+
+        <i class="bi bi-emoji-smile"></i>
+    }
+    @if ( numero < 0 ) {
+
+        <i class="bi bi-emoji-frown"></i>
+    }
+
+    @if ( numero === 0 ) {
+
+        <i class="bi bi-emoji-neutral"></i>    }
+
+    
+    
+<button (click)="restar(1)" >-</button>
