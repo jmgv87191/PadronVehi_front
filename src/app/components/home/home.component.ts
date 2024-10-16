@@ -1,106 +1,116 @@
-import { Component, ChangeDetectionStrategy, OnInit,signal } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {FormGroup, FormsModule, ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { Component, OnInit, AfterViewInit  } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { FormGroup, FormsModule, ReactiveFormsModule, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { PadronService } from '../../services/padron.service';
-import { Vehiculo } from '../../interfaces/vehiculo';
+import { Inventario, Vehiculo } from '../../interfaces/vehiculo';
 import { CommonModule } from '@angular/common';
-import {MatTableModule} from '@angular/material/table';
-import {MatExpansionModule} from '@angular/material/expansion';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { Observable, of } from 'rxjs';
+import { map, startWith, catchError } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CalificacionComponent } from '../../shared/calificacion/calificacion.component';
+import { AppComponent } from "../../app.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatButtonModule, MatDividerModule, MatIconModule, MatCardModule, MatFormFieldModule, MatSelectModule, MatInputModule, 
-    FormsModule, CommonModule, ReactiveFormsModule, MatTableModule, MatExpansionModule],
+  imports: [
+    MatButtonModule, MatDividerModule, MatIconModule, MatCardModule, MatFormFieldModule,
+    MatSelectModule, MatInputModule, FormsModule, CommonModule, ReactiveFormsModule,
+    MatTableModule, MatExpansionModule, MatAutocompleteModule, AsyncPipe, CalificacionComponent,
+    AppComponent
+],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
+  
+  public vehicle!: Vehiculo;
+  public padronVehiculos: Inventario[] = [];
+  myControl = new FormControl('');
+  filteredOptions: Observable<Inventario[]> | undefined; // Cambiar a tipo Inventario
+  form:FormGroup;
 
-  selected = 'option2';
-  form: FormGroup;
-  readonly panelOpenState = signal(false);
+  constructor(private _padronService: PadronService,
+    private fb:FormBuilder
 
-  public vehicle: Vehiculo[] = [];
+  ) {
 
-  ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, name: 'Delanteras', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Traseras', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Cuartos delanteros', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Cuartos traseros', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Direccional derecha (delantera)', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Direccional izquierda (delantera)', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Direccional izquierda (trasera)', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Direccional derecha (trasera)', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Preventivas', weight: 18.9984, symbol: 'F'},
-  ];
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = this.ELEMENT_DATA;
-
-  constructor( private _padronService: PadronService,
-                private fb: FormBuilder
-  ){
     this.form = this.fb.group({
-      id:[null,Validators.required],
-      no_inventario:[null,Validators.required],
-      nombre_resguardante:['', Validators.required],
-      fecha:['', Validators.required],
-      id_vidrios:['', Validators.required],
-
+      color: ['', Validators.required],
+      marca: ['', Validators.required],
+      asignado: ['', Validators.required],
+      
     })
+
+  }
+
+  ngOnInit(): void {
+    this.getVehicle();
+  
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  getVehicle(): void {
+    this._padronService.getProducts().pipe(
+      catchError(error => {
+        console.error('Error al obtener los vehículos:', error);
+        return of([]);
+      })
+    ).subscribe((data: Inventario[]) => {
+      this.padronVehiculos = data;
+      console.log('Vehículos obtenidos:', this.padronVehiculos); // Verifica aquí
+    });
+  }
+
+  private _filter(value: any): Inventario[] {
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
+  
+    // Filtrar vehículos basados en no_inventario
+    return this.padronVehiculos
+      .filter(option => option.no_inventario.toString().toLowerCase().includes(filterValue))
+      .slice(0, 5);
   }
   
-  ngOnInit(): void {
 
-    this.getVehicle();
+// Función que se ejecuta al seleccionar una opción
+  onOptionSelected(selectedVehicle: Inventario): void {
+    // Establecer el valor del control al no_inventario del vehículo seleccionado
+    this.myControl.setValue(String(selectedVehicle.no_inventario));
+    
+    // Obtén el ID y el número de inventario
+    const selectedId = selectedVehicle.id; // Suponiendo que 'id' es el campo que deseas
+    const selectedNoInventario = selectedVehicle.no_inventario;
+    
+    console.log('ID seleccionado:', selectedId);
+    console.log('Número de inventario seleccionado:', selectedNoInventario);
+    // Aquí puedes agregar más lógica según lo que necesites
 
-  }
 
-  getVehicle(){
-
-    this._padronService.getProducts().subscribe((data)=>{
+    this._padronService.getProduct(selectedId!).subscribe((data)=>{
 
       this.vehicle = data;
+      console.log(this.vehicle)
 
-    })
-  }
+      this.form.setValue({
+        color: this.vehicle.color,
+        marca: this.vehicle.marca,
+        asignado: this.vehicle.asignado,
+      })
 
-  onSelectionChange( selectedVehicle: Vehiculo ){
-
-    console.log(selectedVehicle)
-
-    this.form.setValue({
-      id: selectedVehicle.id,
-      nombre_resguardante: selectedVehicle.nombre_resguardante,
-      no_inventario: selectedVehicle.no_inventario,
-      fecha: selectedVehicle.fecha,
-      id_vidrios: selectedVehicle.id_vidrios
     })
 
   }
-
-  AddProduct( id:number, body: Vehiculo ){
-
-    this._padronService.updateProduct(id, body).subscribe(()=>{
-      console.log(id)
-      console.log(body)
-    })
-
-  } 
-
 }

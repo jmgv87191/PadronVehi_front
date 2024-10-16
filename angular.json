@@ -30,7 +30,9 @@
               "@angular/material/prebuilt-themes/magenta-violet.css",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./public/assets/face-rating.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

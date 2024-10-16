@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Vehiculo } from '../interfaces/vehiculo';
+import { Inventario, Vehiculo } from '../interfaces/vehiculo';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -14,12 +14,12 @@ export class PadronService {
 
   constructor( private http: HttpClient ) {
 
-    this.url = "/api/padron"
+    this.url = "/api/inventarios"
 
   }
 
-  getProducts():Observable<Vehiculo[]>{
-    return this.http.get<Vehiculo[]>(  environment.endpoint + this.url  )
+  getProducts():Observable<Inventario[]>{
+    return this.http.get<Inventario[]>(  environment.endpoint + this.url  )
   }
 
   getProduct(id:number):Observable<Vehiculo>{

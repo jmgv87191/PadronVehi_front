@@ -1,9 +1,33 @@
+
+export interface Inventario{
+    id?: number;
+    no_inventario: number;
+}
+
 export interface Vehiculo {
-
     id?:number;
-    no_inventario: string;
-    nombre_resguardante: string;
-    fecha: string;
-    id_vidrios: number;
+    noeconomico:   number;
+    noinventario:  number;
+    area:          string;
+    bien:          string;
+    descripcion:   string;
+    marca:         string;
+    serie:         string;
+    estado:        string;
+    ubicacion:     string;
+    factura:       string;
+    observaciones: null;
+    asignado:      string;
+    modelo:        number;
+    nota:          null;
+    color:         string;
+    revision:      Revision[];
+}
 
+export interface Revision {
+    subcategoria: string;
+    funcionario:  string;
+    fecha:        Date;
+    estado:       number;
+    observacion:  string;
 }
