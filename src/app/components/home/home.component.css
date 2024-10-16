@@ -1,0 +1,10 @@
+.cont_id{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.cont_id_input{
+    width: 80%;
+}

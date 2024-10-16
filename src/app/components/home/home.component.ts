@@ -27,7 +27,7 @@ import { Calificacion2Component } from '../../shared/calificacion2/calificacion2
     MatButtonModule, MatDividerModule, MatIconModule, MatCardModule, MatFormFieldModule,
     MatSelectModule, MatInputModule, FormsModule, CommonModule, ReactiveFormsModule,
     MatTableModule, MatExpansionModule, MatAutocompleteModule, AsyncPipe, CalificacionComponent,
-    AppComponent, Calificacion2Component
+    AppComponent, Calificacion2Component,CommonModule
 ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']

@@ -11,14 +11,18 @@ import { Component } from '@angular/core';
 export class Calificacion2Component {
 
 
-  public numero: number = 0
+  public numero: number = 2
 
-  sumar( numero:number ){
-    return this.numero+=numero
+  sumar(valor: number): void {
+    if (this.numero < 3) {
+      this.numero += valor;
+    }
   }
-  
-  restar( numero:number ){
-    return this.numero-=numero
+
+  restar(valor: number): void {
+    if (this.numero > 1) {
+      this.numero -= valor;
+    }
   }
   
 

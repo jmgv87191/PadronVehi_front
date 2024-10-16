@@ -1,21 +1,23 @@
 <form class="example-form"  [formGroup]="form" >
-    
-    <mat-form-field class="example-full-width">
-    <mat-label>Number</mat-label>
-    <input type="text"
-            placeholder="Pick one"
-            aria-label="Number"
-            matInput
-            [formControl]="myControl"
-            [matAutocomplete]="auto"
-    >
+    <div class="container cont_id">
 
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{ option.no_inventario }} 
-        </mat-option>
-    </mat-autocomplete>
-    </mat-form-field>
+        <mat-form-field class="example-full-width cont_id_input ">
+        <mat-label>Number</mat-label>
+        <input type="text"
+                placeholder="Pick one"
+                aria-label="Number"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+        >
+    
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option.no_inventario }} 
+            </mat-option>
+        </mat-autocomplete>
+        </mat-form-field>
+    </div>
 
     <div class="container">
         <div class="card">
@@ -46,71 +48,193 @@
 
                 </div>
 
-                </div>
+            </div>
                 
-            </div>
         </div>
+    </div>
         
+
+    <div class="container">
+
         <div class="accordion accordion-flush" id="accordionFlushExample">
-        
-        
-        
-            <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Luces
-                </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-    
-                    <table class="table">
+
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Luces
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+
+                <table class="table">
+                    
+                    <thead>
+                        <tr>
+                            <th ></th>
+                            <th ></th>
+                            <th ></th>
+
+                        </tr>
+                    </thead>
                         
-                        <thead>
-                            <tr>
-                                <th ></th>
-                                <th ></th>
-                                <th ></th>
+                    <tbody  >
+                        @for (item of vehicle?.revision; track $index) {
+                            @if (item.subcategoria.includes('LUZ') || item.subcategoria.includes('LUCES')  ) {
+                                <tr>
+                                    <td>
+                                        {{ item.subcategoria }}
+                                    </td>
+                                    <td>
+                                        <app-calificacion2></app-calificacion2>
+                                    </td>
+                                </tr> 
+                            }
+                        } 
+                    </tbody>
 
-                            </tr>
-                        </thead>
-                            
-                            <tbody  >
+                </table>   
 
-                                
- 
-                                @for (item of vehicle?.revision; track $index) {
-
-                                    <tr>
-    
-                                        <td>
-                                            {{ item.subcategoria }}
-                                        </td>
-    
-                                        <td>
-                                            <app-calificacion2></app-calificacion2>
-                                        </td>
-    
-    
-                                        
-                                    </tr> 
-
-
-                                } 
-                                    
-                                    
-                                </tbody>
-                                
-                                
-                                
-                    </table>   
-                            
-
-            
-
-                </div>
             </div>
-            </div>
+        </div>
+        </div>
 
         </div>
-    </form>
+
+        <div class="accordion accordion-flush" id="accordionAsientos">
+
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne2" aria-expanded="false" aria-controls="flush-collapseOne2">
+                Asientos
+            </button>
+        </h2>
+        <div id="flush-collapseOne2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionAsientos">
+            <div class="accordion-body">
+
+                <table class="table">
+                    
+                    <thead>
+                        <tr>
+                            <th ></th>
+                            <th ></th>
+                            <th ></th>
+
+                        </tr>
+                    </thead>
+                    <tbody  >
+                        @for (item of vehicle?.revision; track $index) {
+                            @if (item.subcategoria.includes('ASIENTOS')   ) {
+                                <tr>
+                                    <td>
+                                        {{ item.subcategoria }}
+                                    </td>
+                                    <td>
+                                        <app-calificacion2></app-calificacion2>
+                                    </td>
+                                </tr> 
+                            }
+                        } 
+                    </tbody>
+
+                </table>   
+
+            </div>
+        </div>
+        </div>
+
+        </div>
+
+        <div class="accordion accordion-flush" id="accordionVidrios">
+
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne3" aria-expanded="false" aria-controls="flush-collapseOne3">
+                Vidrios
+            </button>
+        </h2>
+        <div id="flush-collapseOne3" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionVidrios">
+            <div class="accordion-body">
+
+                <table class="table">
+                    
+                    <thead>
+                        <tr>
+                            <th ></th>
+                            <th ></th>
+                            <th ></th>
+
+                        </tr>
+                    </thead>
+                    <tbody  >
+                        @for (item of vehicle?.revision; track $index) {
+                            @if (item.subcategoria.includes('VIDRIO')   ) {
+                                <tr>
+                                    <td>
+                                        {{ item.subcategoria }}
+                                    </td>
+                                    <td>
+                                        <app-calificacion2></app-calificacion2>
+                                    </td>
+                                </tr> 
+                            }
+                        } 
+                    </tbody>
+
+                </table>   
+
+            </div>
+        </div>
+        </div>
+
+        </div>
+
+        <div class="accordion accordion-flush" id="accordionEspejos">
+
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne4" aria-expanded="false" aria-controls="flush-collapseOne4">
+                Espejos
+            </button>
+        </h2>
+        <div id="flush-collapseOne4" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionEspejos">
+            <div class="accordion-body">
+
+                <table class="table">
+                    
+                    <thead>
+                        <tr>
+                            <th ></th>
+                            <th ></th>
+                            <th ></th>
+
+                        </tr>
+                    </thead>
+                    <tbody  >
+                        @for (item of vehicle?.revision; track $index) {
+                            @if (item.subcategoria.includes('ESPEJO')   ) {
+                                <tr>
+                                    <td>
+                                        {{ item.subcategoria }}
+                                    </td>
+                                    <td>
+                                        <app-calificacion2></app-calificacion2>
+                                    </td>
+                                </tr> 
+                            }
+                        } 
+                    </tbody>
+
+                </table>   
+
+            </div>
+        </div>
+        </div>
+
+        </div>
+    </div>
+
+
+
+
+</form>
