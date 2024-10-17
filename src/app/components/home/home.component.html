@@ -1,4 +1,5 @@
-<form class="example-form"  [formGroup]="form" >
+<form class="example-form"  [formGroup]="form" (ngSubmit)="agregar()" >
+
     <div class="container cont_id">
 
         <mat-form-field class="example-full-width cont_id_input ">
@@ -49,14 +50,12 @@
                 </div>
 
             </div>
-                
         </div>
     </div>
         
+    <div class="container container_revision">
 
-    <div class="container">
-
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion accordion-flush " id="accordionFlushExample">
 
         <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingOne">
@@ -232,8 +231,9 @@
         </div>
 
         </div>
-    </div>
 
+        <button class="btn btn-primary" >Agregar</button>  
+    </div>
 
 
 

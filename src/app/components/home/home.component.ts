@@ -114,4 +114,11 @@ export class HomeComponent implements OnInit {
     })
 
   }
+
+
+  agregar(){
+    console.log(this.form.value)
+  }
+
+
 }

@@ -24,6 +24,14 @@ export interface Vehiculo {
     revision:      Revision[];
 }
 
+export interface RespVehiculo {
+
+    id_inv:number;
+    
+}
+
+
+
 export interface Revision {
     subcategoria: string;
     funcionario:  string;
@@ -31,3 +39,22 @@ export interface Revision {
     estado:       number;
     observacion:  string;
 }
+
+
+
+
+
+/* 
+
+vehiculo{
+    id_inv: number;
+    revision[
+        {
+            id_revision: number
+            estado: number
+            observacion: string;
+        }
+    ]
+} 
+    
+*/

@@ -6,5 +6,38 @@
 }
 
 .cont_id_input{
-    width: 80%;
+    width: 60%;
+}
+
+form{
+    margin-bottom: 50px;
+}
+
+.container{
+    margin-bottom: 30px;
+}
+
+.container:last-of-type{
+    padding-bottom: 50px;
+}
+
+@media (max-width: 950px) {
+
+    .cont_id_input{
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .cont_id{
+        width: 100%;
+
+    }
+
+    .cont_id_input{
+        width: 100%;
+    }
+
 }
