@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input  } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PadronService } from '../../services/padron.service';
-import { Inventario, Vehiculo } from '../../interfaces/vehiculo';
+import { Inventario, RespVehiculo, Vehiculo } from '../../interfaces/vehiculo';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -37,9 +37,13 @@ export class HomeComponent implements OnInit {
   
   public vehicle!: Vehiculo;
   public padronVehiculos: Inventario[] = [];
+  public respRevision?: RespVehiculo;
   myControl = new FormControl('');
-  filteredOptions: Observable<Inventario[]> | undefined; // Cambiar a tipo Inventario
+  filteredOptions: Observable<Inventario[]> | undefined;
   form:FormGroup;
+  numero: number | undefined = 123;
+  public valorCalificacion: number = 2; // Valor inicial
+
 
   constructor(private _padronService: PadronService,
     private fb:FormBuilder
@@ -102,22 +106,50 @@ export class HomeComponent implements OnInit {
 
     this._padronService.getProduct(selectedId!).subscribe((data)=>{
 
+
       this.vehicle = data;
-      console.log(this.vehicle)
+
+      console.log(data)
 
       this.form.setValue({
         color: this.vehicle.color,
         marca: this.vehicle.marca,
         asignado: this.vehicle.asignado,
       })
+      
+
+      this.respRevision = {
+        id_inv: data.id,
+        id_funcionario: data.asignado,
+        id_vehiculo: data.id,
+        fecha: "12/12/12",
+        usuario: data.asignado,
+      
+        revision: data.revision.map((rev: any) => ({
+          id_subcategoria: rev.subcategoriaId,
+          estado: 1,  
+          observacion: "Observación por defecto" 
+        }))
+      };
+      
+      
+
+  
 
     })
 
   }
 
-
   agregar(){
-    console.log(this.form.value)
+    console.log(this.respRevision)
+    
+
+
+  }
+
+  actualizarValor(nuevoValor: number): void {
+    console.log('Nuevo valor recibido:', nuevoValor);
+    this.valorCalificacion = nuevoValor;
   }
 
 

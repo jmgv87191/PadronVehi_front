@@ -1,20 +1,13 @@
 
 
-<button (click)="sumar(1)" >+</button>
+<button type="button" (click)="sumar(1)" >+</button>
     
-    @if ( numero > 2 ) {
-
-        <i class="bi bi-emoji-smile"></i>
-    }
-    @if ( numero < 2 ) {
-
-        <i class="bi bi-emoji-frown"></i>
-    }
-
-    @if ( numero === 2 ) {
-
-        <i class="bi bi-emoji-neutral"></i>    }
-
+<span>
+    <i *ngIf="numero > 2" class="bi bi-emoji-smile"></i>
+    <i *ngIf="numero < 2" class="bi bi-emoji-frown"></i>
+    <i *ngIf="numero === 2" class="bi bi-emoji-neutral"></i>
+</span>
     
     
-<button (click)="restar(1)" >-</button>
+<button type="button" (click)="restar(1)" >-</button>
+

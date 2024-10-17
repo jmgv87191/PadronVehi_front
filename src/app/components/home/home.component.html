@@ -85,8 +85,12 @@
                                         {{ item.subcategoria }}
                                     </td>
                                     <td>
-                                        <app-calificacion2></app-calificacion2>
-                                    </td>
+                                        <app-calificacion2 
+                                            [numero]="valorCalificacion" 
+                                            (numeroChange)="actualizarValor($event)">
+                                        </app-calificacion2>
+                                    
+                                    <p>Valor de calificación en el padre: {{ valorCalificacion }}</p>                                    </td>
                                 </tr> 
                             }
                         } 
@@ -236,5 +240,8 @@
     </div>
 
 
+
+
+    
 
 </form>
