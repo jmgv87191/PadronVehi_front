@@ -10,7 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class Calificacion2Component {
   @Input() numero: number = 2; // Permitir que el valor inicial venga desde el padre
-  @Output() numeroChange = new EventEmitter<number>(); // Emitir cambios al padre
+  @Output() numeroChange = new EventEmitter<number>(); 
 
   sumar(valor: number): void {
     if (this.numero < 3) {

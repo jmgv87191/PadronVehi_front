@@ -56,7 +56,12 @@ export interface respRevision {
 
 }
 
+export interface tablaLuces{
 
+    subcategoria: string;
+    subcategoriaId: number;
+    estado: number;
+}
 
 /* 
 

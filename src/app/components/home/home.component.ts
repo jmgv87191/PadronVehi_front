@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PadronService } from '../../services/padron.service';
-import { Inventario, RespVehiculo, Vehiculo } from '../../interfaces/vehiculo';
+import { Inventario, RespVehiculo, tablaLuces, Vehiculo } from '../../interfaces/vehiculo';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -42,7 +42,67 @@ export class HomeComponent implements OnInit {
   filteredOptions: Observable<Inventario[]> | undefined;
   form:FormGroup;
   numero: number | undefined = 123;
-  public valorCalificacion: number = 2; // Valor inicial
+  public valorCalificacion: number = 2;
+  
+
+  detallesRevision: tablaLuces[] = [
+    {
+    subcategoria: "LUZ DELANTERA",
+    subcategoriaId : 1,
+    estado:2
+  },
+    {
+    subcategoria: "LUZ TRASERA",
+    subcategoriaId : 2,
+    estado:2
+
+  },
+    {
+    subcategoria: "LUZ DE CUARTOS DELANTERO",
+    subcategoriaId : 3,
+    estado:2
+
+
+  },
+    {
+    subcategoria: "LUZ DE CUARTOS TRASERO",
+    subcategoriaId : 4,
+    estado:2
+
+  },
+    {
+    subcategoria: "LUZ DIRECCIONAL DERECHA DELANTERA",
+    subcategoriaId : 5,
+    estado:2
+
+  },
+    {
+    subcategoria: "LUZ DIRECCIONAL IZQUIERDA DELANTERA",
+    subcategoriaId : 6,
+    estado:2
+
+  },
+    {
+    subcategoria: "LUZ DIRECCIONAL DERECHA TRASERA",
+    subcategoriaId : 7,
+    estado:2
+
+  },
+    {
+    subcategoria: "LUZ DIRECCIONAL IZQUIERDA TRASERA",
+    subcategoriaId : 8,
+    estado:2
+
+  },
+    {
+    subcategoria: "LUCES PREVENTIVAS",
+    subcategoriaId : 9,
+    estado:2
+
+  }
+
+]
+
 
 
   constructor(private _padronService: PadronService,
@@ -131,20 +191,12 @@ export class HomeComponent implements OnInit {
           observacion: "Observación por defecto" 
         }))
       };
-      
-      
-
-  
-
     })
 
   }
 
   agregar(){
     console.log(this.respRevision)
-    
-
-
   }
 
   actualizarValor(nuevoValor: number): void {
@@ -152,5 +204,8 @@ export class HomeComponent implements OnInit {
     this.valorCalificacion = nuevoValor;
   }
 
+  valorEstado(item: tablaLuces): void {
+    item.estado += 1;
+  }
 
 }
