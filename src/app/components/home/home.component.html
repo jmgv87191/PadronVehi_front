@@ -12,7 +12,7 @@
                 [matAutocomplete]="auto"
         >
     
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value, detallesRevision)">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{ option.no_inventario }} 
             </mat-option>
@@ -84,7 +84,7 @@
                                     {{ item.subcategoria }}
                                 </td>
                                 <td>
-                                    <button type="button" (click)="valorEstado(item)" class="btb btn-success" >+</button>
+                                    <button type="button"  class="btb btn-success" >+</button>
                                     {{ item.estado }}
                                 </td>
                             </tr> 

@@ -151,7 +151,7 @@ export class HomeComponent implements OnInit {
   
 
 // Función que se ejecuta al seleccionar una opción
-  onOptionSelected(selectedVehicle: Inventario): void {
+  onOptionSelected(selectedVehicle: Inventario, tabla:tablaLuces[]): void {
     // Establecer el valor del control al no_inventario del vehículo seleccionado
     this.myControl.setValue(String(selectedVehicle.no_inventario));
     
@@ -191,21 +191,33 @@ export class HomeComponent implements OnInit {
           observacion: "Observación por defecto" 
         }))
       };
+
+      
     })
 
   }
 
-  agregar(){
-    console.log(this.respRevision)
-  }
-
+  
   actualizarValor(nuevoValor: number): void {
     console.log('Nuevo valor recibido:', nuevoValor);
     this.valorCalificacion = nuevoValor;
   }
-
-  valorEstado(item: tablaLuces): void {
+  
+/*   valorEstado(item: tablaLuces, tabla:tablaLuces): void {
+    
+    
     item.estado += 1;
+    tabla.estado =item.estado
+    
+    
+    console.log(  item )
+    console.log(  tabla ) 
+  } */
+  
+  agregar(){
+    console.log(this.respRevision)
   }
+
+
 
 }
